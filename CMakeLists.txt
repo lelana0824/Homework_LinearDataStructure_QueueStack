@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(LinearDataStructure_QueueStack main.cpp
         Container/Queue.h
         Container/Stack.h
+        UndoRedoSystem.cpp
+        UndoRedoSystem.h
 )

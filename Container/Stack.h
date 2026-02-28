@@ -1,5 +1,5 @@
 //
-// Created by Lelana on 2026. 2. 28..
+// Created by Lelana on 2026. 2. 28
 //
 
 #ifndef LINEARDATASTRUCTURE_QUEUESTACK_STACK_H
@@ -14,7 +14,7 @@ public:
     }
     ~Stack()
     {
-
+        Clear();
     }
 
     bool IsFull() const
@@ -46,6 +46,24 @@ public:
     {
         size--;
         return datas[size];
+    }
+
+    void Print() {
+        for (int i = size - 1; i >= 0; i--) {
+            std::cout << datas[i] << "\n";
+        }
+        std::cout << "-----";
+    }
+    void Clear() {
+        while (!IsEmpty()) {
+            T value = Pop();
+            // todo: 단순값인경우 어떻게 할지?
+
+            if (value) {
+                delete value;
+                value = nullptr;
+            }
+        }
     }
 
 private:

@@ -1,5 +1,5 @@
 //
-// Created by Lelana on 2026. 2. 28..
+// Created by Lelana on 2026. 2. 28
 //
 
 #ifndef LINEARDATASTRUCTURE_QUEUESTACK_QUEUE_H
@@ -12,7 +12,9 @@ public:
     Queue()
         :front(0), rear(0), size(inSize + 1)
     {};
-    ~Queue(){};
+    ~Queue() {
+        Clear();
+    };
 
     bool Enqueue(T inData) {
         if (IsFull()) return false;
@@ -54,6 +56,19 @@ public:
 
     int Size() const {
         return inSize;
+    }
+
+private:
+    void Clear() {
+        while (!IsEmpty()) {
+            T value = Dequeue();
+            // todo: 단순값인경우 어떻게 할지?
+
+            if (value) {
+                delete value;
+                value = nullptr;
+            }
+        }
     }
 private:
     int front;
