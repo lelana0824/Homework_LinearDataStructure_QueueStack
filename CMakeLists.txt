@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 4.0)
+project(LinearDataStructure_QueueStack)
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_executable(LinearDataStructure_QueueStack main.cpp
+        Container/Queue.h
+        Container/Stack.h)
