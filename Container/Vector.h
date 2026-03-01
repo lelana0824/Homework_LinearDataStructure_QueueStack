@@ -60,8 +60,12 @@ public:
         list[size++] = value;
     }
 
+    // 데이터의 연속성을 지켜야 함.
     void Erase(int i) {
-        list[i] = T();
+        for (int j = size - 1; j > i; j--) {
+            list[j - 1] = list[j];
+        }
+
         size--;
     }
 
