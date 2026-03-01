@@ -34,21 +34,20 @@ public:
     }
 
     void Set(int i, T value) {
-        if (!list[i]) {
-            size++;
-        }
         list[i] = value;
     }
 
-    void Insert(T value) {
+    void Insert(int index, T value) {
         if (IsFull()) {
             PowerSize();
         }
 
-        for (int i = size - 1; i >= 0; i--) {
+        // 끝에서부터 삽입할 위치(index)까지 한 칸씩 뒤로 밀어냄
+        for (int i = size - 1; i >= index; i--) {
             list[i + 1] = list[i];
         }
-        list[0] = value;
+
+        list[index] = value;
         size++;
     }
 

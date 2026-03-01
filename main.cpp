@@ -15,7 +15,7 @@ int main() {
     list->Pushback(8);
     list->Set(0, 121);
     list->Erase(4);
-    list->Insert(1);
+    list->Insert(1, 3);
 
     std::cout << list->at(0) << "\n";
     std::cout << list->Size() << "\n";
