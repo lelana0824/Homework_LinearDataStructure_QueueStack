@@ -6,6 +6,21 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
+#include <termios.h>
+#include <unistd.h>
+
+// 터미널 입력을 즉시 받기 위한 로우 레벨 환경 설정 함수 (macOS/Linux 정석)
+int GetCh() {
+    struct termios oldt, newt;
+    int ch;
+    tcgetattr(STDIN_FILENO, &oldt); // 현재 터미널 설정 백업
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO); // 캐논 모드(엔터 대기)와 에코(화면 출력) 비활성화
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt); // 새 설정 즉시 적용
+    ch = getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // 원래 설정 복구
+    return ch;
+}
 
 FlipThroughCardSystem::FlipThroughCardSystem() {
     cards = new Vector<CardInfo *>;
@@ -77,9 +92,41 @@ void FlipThroughCardSystem::Initialize(const char* fileName) {
 //Run 함수로 내부에서는 private Show를 호출해서 첫 번째 인덱스 카드를 보여주자.
 //방향키 입력을 받아서 동작하도록 하자.
 void FlipThroughCardSystem::Run() {
-    if (!cards) return;
+    if (!cards || cards->IsEmpty()) return;
 
-    ShowCard(0);
+    int currentIndex = 0;
+    ShowCard(currentIndex);
+
+    while (true) {
+        int key = GetCh();
+
+        // Unix 환경에서 방향키는 ESC(27)로 시작하는 3바이트 시퀀스를 생성합니다.
+        if (key == 27) {
+            int next1 = GetCh();
+            int next2 = GetCh();
+
+            if (next1 == 91) { // '[' 문자
+                if (next2 == 67) { // Right Arrow (오른쪽 방향키)
+                    if (currentIndex < cards->Size() - 1) {
+                        currentIndex++;
+                    } else {
+                        currentIndex = 0;
+                    }
+
+
+                }
+                else if (next2 == 68) { // Left Arrow (왼쪽 방향키)
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    } else {
+                        currentIndex = cards->Size() - 1;
+                    }
+                }
+                system("clear");
+                ShowCard(currentIndex % cards->Size());
+            }
+        }
+    }
 }
 
 void FlipThroughCardSystem::ShowCard(int index) {
