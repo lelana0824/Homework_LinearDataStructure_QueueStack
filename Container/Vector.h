@@ -12,7 +12,12 @@ public:
     Vector(): size(0), capacity(initSize) {
         list = new T[capacity];
     }
-    ~Vector(){}
+    ~Vector() {
+        if (list) {
+            delete[] list;
+        }
+
+    }
 /*
 *- at(integer i) : index i에 대해서 데이터 값을 반환해준다.
     - operator[](int index);
