@@ -9,16 +9,16 @@
 
 CardInfo::CardInfo(int id, char* name, char* type, int cost, int rarity)
     : id(id), cost(cost), rarity(rarity) {
-    int charLength = sizeof(name) / sizeof(char);
+    int charLength = strlen(name);
     char* newName = new char[charLength + 1];
 
-    strcpy(name, newName);
+    strcpy(newName, name);
     this->name = newName;
 
-    int typeLength = sizeof(type) / sizeof(char);
+    int typeLength = strlen(type);
     char* newType = new char[typeLength + 1];
 
-    strcpy(type, newType);
+    strcpy(newType, type);
     this->type = newType;
 }
 
@@ -33,18 +33,11 @@ CardInfo::~CardInfo() {
     }
 }
 void CardInfo::Show() const {
-    std::cout << "------------------------" << "\n";
-    std::cout << "-----------" << id << "----------" << "\n";
-    std::cout << "------------------------" << "\n";
-    std::cout << "-----------" << name << "----------" << "\n";
-    std::cout << "------------------------" << "\n";
-    std::cout << "------------------------" << "\n";
-    std::cout << "------------------------" << "\n";
-    std::cout << "-----------" << cost << "----------" << "\n";
-    std::cout << "-----------" << rarity << "----------" << "\n";
-    std::cout << "------------------------" << "\n";
-    std::cout << "------------------------" << "\n";
-    std::cout << "------------------------" << "\n";
-    std::cout << "------------------------" << "\n";
+    std::cout << "-----------------------" << "\n";
+    std::cout << "----No:     " << id << "----------" << "\n";
+    std::cout << "----Name:   " << name << "(" << type << ")" << "\n";
+    std::cout << "----cost:   " << cost << "----------" << "\n";
+    std::cout << "----rarity: " << rarity << "----------" << "\n";
+    std::cout << "-----------------------" << "\n";
 
 }

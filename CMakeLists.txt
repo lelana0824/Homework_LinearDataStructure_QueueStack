@@ -11,4 +11,6 @@ add_executable(LinearDataStructure_QueueStack main.cpp
         Container/Vector.h
         CardInfo.cpp
         CardInfo.h
+        FlipThroughCardSystem.cpp
+        FlipThroughCardSystem.h
 )
