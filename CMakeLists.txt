@@ -8,4 +8,5 @@ add_executable(LinearDataStructure_QueueStack main.cpp
         Container/Stack.h
         UndoRedoSystem.cpp
         UndoRedoSystem.h
+        Container/Vector.h
 )
